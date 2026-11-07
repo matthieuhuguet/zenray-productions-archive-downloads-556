@@ -1,0 +1,113 @@
+{
+  "family": "Adobe Clean",
+  "origin": "Official Adobe Clean Release v5.210 GM (Robert Slimbach)",
+  "stylesCount": 21,
+  "installedLocation": "/Users/zenray/Library/Fonts",
+  "fonts": [
+    {
+      "name": "AdobeClean-Black.otf",
+      "size": 256508,
+      "sha256": "28221519a06c3fc907b530ca0dd60598ecb3670dd9db39f5176389b9b1521e76"
+    },
+    {
+      "name": "AdobeClean-BlackIt.otf",
+      "size": 173464,
+      "sha256": "cbe9d4aa0315546363a1da056265d6671adebf3767b9afc41b975a8fa33c81dc"
+    },
+    {
+      "name": "AdobeClean-Bold.otf",
+      "size": 254136,
+      "sha256": "a31e4efcb48836a58b921068b6ddacb37e0e846518ed396ff3fefe6f06fd73f3"
+    },
+    {
+      "name": "AdobeClean-BoldCond.otf",
+      "size": 253316,
+      "sha256": "8e2d02824b3984b2c5f44c9d18e53e3d3a0bfea5c6e49cc623a1e3637c139be5"
+    },
+    {
+      "name": "AdobeClean-BoldCondIt.otf",
+      "size": 170324,
+      "sha256": "22f4935ef5fd711b8b62d3a288943fab90f1aa465e5b6cd044a1a59fdfe78c43"
+    },
+    {
+      "name": "AdobeClean-BoldIt.otf",
+      "size": 170180,
+      "sha256": "eb537370e1cec57ea155832ef63a9e65ca87209b3b402799bdc96e62fe47b384"
+    },
+    {
+      "name": "AdobeClean-BoldSemiCn.otf",
+      "size": 253616,
+      "sha256": "b02c5f3e8185fae912ab56f79706df48d247da0e11e4d3ca23958be3e2abfd11"
+    },
+    {
+      "name": "AdobeClean-BoldSemiCnIt.otf",
+      "size": 170664,
+      "sha256": "954efbb121ad10db3511320fbb52e0d0dfe5cfc26e40d4b261cb3993560709b6"
+    },
+    {
+      "name": "AdobeClean-Cond.otf",
+      "size": 247308,
+      "sha256": "badfe64ff793b35cb4f2462f2b5f536dccfa9e289523eba71e0104ebccbd14fd"
+    },
+    {
+      "name": "AdobeClean-CondIt.otf",
+      "size": 167664,
+      "sha256": "6ea7d3ea7b61854fb8dd0933bb638c13a0096279e303ac123e7c569f832e25ab"
+    },
+    {
+      "name": "AdobeClean-ExtraBold.otf",
+      "size": 256680,
+      "sha256": "87c81319179c37fa1f47166e19308d30998a9820bd1f2b616815bc402be422c5"
+    },
+    {
+      "name": "AdobeClean-ExtraBoldIt.otf",
+      "size": 171824,
+      "sha256": "4e766b78411370e33253dbde3d6d660f74bcab771ebf54b1ec82f558a6da994b"
+    },
+    {
+      "name": "AdobeClean-It.otf",
+      "size": 168792,
+      "sha256": "4e6b02cff52153f1858f95fd3b2480f6a07d464f447f8f88ab7d101c74f951f7"
+    },
+    {
+      "name": "AdobeClean-Light.otf",
+      "size": 246852,
+      "sha256": "64edf04deb06d1d39f7a4ec27bdc56f5127dfb2563590e1697d5daf10e9bdd54"
+    },
+    {
+      "name": "AdobeClean-LightIt.otf",
+      "size": 166952,
+      "sha256": "33b96e088b201f5cb2a41e9499d70aa61731424292e3e41833b53e34c50b6c64"
+    },
+    {
+      "name": "AdobeClean-Medium.otf",
+      "size": 246940,
+      "sha256": "b90b01631914f876a508414af0c41020847d382a060672755bc3f36e992ebe3f"
+    },
+    {
+      "name": "AdobeClean-Regular.otf",
+      "size": 249900,
+      "sha256": "5901f909b937ac108783d2373846a51fc2e0e2dd0c776083ca1ff3b19c84bef8"
+    },
+    {
+      "name": "AdobeClean-SemiCn.otf",
+      "size": 247736,
+      "sha256": "48cc2a1486e21de0d0d8f64008253fb700a248101b23004b6da862aa4e902c2d"
+    },
+    {
+      "name": "AdobeClean-SemiCnIt.otf",
+      "size": 167272,
+      "sha256": "44fbbef510e3b4a5e5bb2dbfeb293fea50b2b674efe702c33f52253608da5fac"
+    },
+    {
+      "name": "AdobeClean-SemiLight.otf",
+      "size": 247500,
+      "sha256": "e3c910fe94404e965ba35027ee6b137738369f554e4142cbb2165e6f78306c95"
+    },
+    {
+      "name": "AdobeClean-SemiLightIt.otf",
+      "size": 167848,
+      "sha256": "4cd394478e864881f74be863418ff4facd465518a549ae872323c804e3b72865"
+    }
+  ]
+}

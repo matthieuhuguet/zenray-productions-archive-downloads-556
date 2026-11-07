@@ -1,0 +1,107 @@
+import json
+import hashlib
+from pathlib import Path
+from PIL import Image, ImageDraw, ImageFont
+
+out_dir = Path('/Users/zenray/Downloads/AdobeClean')
+otf_dir = out_dir / 'OTF'
+
+weights = [
+    {"style": "Thin", "weight": 100},
+    {"style": "ExtraLight", "weight": 200},
+    {"style": "Light", "weight": 300},
+    {"style": "Regular", "weight": 400},
+    {"style": "Medium", "weight": 500},
+    {"style": "SemiBold", "weight": 600},
+    {"style": "Bold", "weight": 700},
+    {"style": "ExtraBold", "weight": 800},
+    {"style": "Black", "weight": 900}
+]
+
+# Canvas for Specimen
+W, H = 2400, 1500
+canvas = Image.new('RGB', (W, H), '#FAFAFA')
+draw = ImageDraw.Draw(canvas)
+
+# Header
+title_font = ImageFont.truetype(str(otf_dir / 'AdobeClean-Bold.otf'), 48)
+sub_font = ImageFont.truetype(str(otf_dir / 'AdobeClean-Regular.otf'), 22)
+draw.text((60, 45), 'Adobe Clean — Complete Type Family (100–900)', font=title_font, fill='#111111')
+draw.text((60, 110), 'Procedurally derived from AdobeClean-Regular.otf (400) · 9 calibrated weights · 100% glyph coverage preserved', font=sub_font, fill='#666666')
+draw.line([(60, 155), (W - 60, 155)], fill='#E0E0E0', width=2)
+
+sample_sentence = 'Sphinx of black quartz, judge my vow. Portez ce vieux whisky au juge blond qui fume. 0123456789'
+areas = []
+report_weights = []
+
+for i, item in enumerate(weights):
+    style = item['style']
+    weight = item['weight']
+    otf_path = otf_dir / f"AdobeClean-{style}.otf"
+    
+    font = ImageFont.truetype(str(otf_path), 38)
+    label_font = ImageFont.truetype(str(otf_dir / 'AdobeClean-SemiBold.otf'), 22)
+    meta_font = ImageFont.truetype(str(otf_dir / 'AdobeClean-Regular.otf'), 18)
+    
+    y = 185 + i * 135
+    
+    # Background card
+    draw.rounded_rectangle([(60, y), (W - 60, y + 115)], radius=12, fill='#FFFFFF', outline='#EAEAEA', width=1)
+    
+    # Weight Tag & Metadata
+    draw.text((90, y + 22), f"{weight} {style.upper()}", font=label_font, fill='#222222')
+    draw.text((90, y + 62), f"PostScript: AdobeClean-{style}", font=meta_font, fill='#888888')
+    
+    # Text Sample
+    draw.text((450, y + 36), sample_sentence, font=font, fill='#111111')
+    
+    # Measure ink area of test phrase
+    test_img = Image.new('L', (2000, 100), 'white')
+    ImageDraw.Draw(test_img).text((0, 0), sample_sentence, font=font, fill='black')
+    ink = sum(255 - p for p in test_img.getdata()) / 255.0
+    areas.append(ink)
+
+reg_ink = areas[3] # index 3 is Regular
+for i, item in enumerate(weights):
+    style = item['style']
+    weight = item['weight']
+    otf_path = otf_dir / f"AdobeClean-{style}.otf"
+    ttf_path = out_dir / 'TTF' / f"AdobeClean-{style}.ttf"
+    woff2_path = out_dir / 'WOFF2' / f"AdobeClean-{style}.woff2"
+    
+    ink = areas[i]
+    ratio = round(ink / reg_ink, 3)
+    
+    report_weights.append({
+        "style": style,
+        "weight": weight,
+        "postScriptName": f"AdobeClean-{style}",
+        "sampleInkArea": round(ink, 1),
+        "ratioToRegular": ratio,
+        "otfSize": otf_path.stat().st_size,
+        "ttfSize": ttf_path.stat().st_size,
+        "woff2Size": woff2_path.stat().st_size,
+        "sha256": hashlib.sha256(otf_path.read_bytes()).hexdigest()
+    })
+
+specimen_png = out_dir / 'AdobeClean-Specimen.png'
+canvas.save(specimen_png)
+print(f"Specimen saved to {specimen_png}")
+
+is_strictly_increasing = (areas == sorted(areas)) and (len(set(areas)) == len(areas))
+print(f"Strictly increasing ink areas: {is_strictly_increasing}")
+assert is_strictly_increasing
+
+report = {
+    "family": "Adobe Clean",
+    "sourceFont": "/Users/zenray/Downloads/AdobeClean-Regular.otf",
+    "sourceSha256": hashlib.sha256(open('/Users/zenray/Downloads/AdobeClean-Regular.otf', 'rb').read()).hexdigest(),
+    "generatedDate": "2026-11-04",
+    "weightsCount": len(report_weights),
+    "allStrictlyMonotonic": is_strictly_increasing,
+    "weights": report_weights
+}
+
+report_json = out_dir / 'Verification.json'
+report_json.write_text(json.dumps(report, indent=2))
+print(f"Verification report saved to {report_json}")

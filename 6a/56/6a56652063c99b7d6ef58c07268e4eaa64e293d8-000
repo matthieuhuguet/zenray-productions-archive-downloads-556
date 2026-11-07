@@ -1,0 +1,178 @@
+import sys
+import shutil
+import hashlib
+from pathlib import Path
+
+# Insert vendor directory for skia-pathops
+sys.path.insert(0, '/Users/zenray/Create/Build/Productions/ZenRayHoudini/VegetationCollection01/assets/fonts/Vogun/vendor')
+
+from fontTools.ttLib import TTFont
+from fontTools.ttLib.removeOverlaps import removeOverlaps
+
+source_file = Path('/Users/zenray/Downloads/AdobeClean-Regular.otf')
+orig_hash = hashlib.sha256(source_file.read_bytes()).hexdigest()
+ref_font = TTFont(source_file)
+expected_coverage = set(ref_font.getBestCmap())
+print(f"Reference Regular has {len(expected_coverage)} codepoints, SHA256: {orig_hash[:16]}...")
+
+raw_dir = Path('/Users/zenray/Downloads/AdobeClean/raw')
+out_dir = Path('/Users/zenray/Downloads/AdobeClean')
+otf_dir = out_dir / 'OTF'
+ttf_dir = out_dir / 'TTF'
+woff2_dir = out_dir / 'WOFF2'
+
+for d in [otf_dir, ttf_dir, woff2_dir]:
+    d.mkdir(parents=True, exist_ok=True)
+
+weights_info = [
+    {"style": "Thin", "weight": 100, "panose_weight": 2},
+    {"style": "ExtraLight", "weight": 200, "panose_weight": 3},
+    {"style": "Light", "weight": 300, "panose_weight": 4},
+    {"style": "Regular", "weight": 400, "panose_weight": 5, "is_source": True},
+    {"style": "Medium", "weight": 500, "panose_weight": 6},
+    {"style": "SemiBold", "weight": 600, "panose_weight": 7},
+    {"style": "Bold", "weight": 700, "panose_weight": 8},
+    {"style": "ExtraBold", "weight": 800, "panose_weight": 9},
+    {"style": "Black", "weight": 900, "panose_weight": 10}
+]
+
+def normalize_names_and_tables(font, style, weight, panose_weight, is_ttf=False):
+    # Overlap removal
+    removeOverlaps(font, removeHinting=True, ignoreErrors=True)
+    
+    # Naming records
+    # For RIBBI compatibility:
+    # Name 1: "Adobe Clean" if style in ("Regular", "Bold") else f"Adobe Clean {style}"
+    # Name 2: "Bold" if style == "Bold" else "Regular"
+    # Name 16: "Adobe Clean" (Preferred / Typographic Family)
+    # Name 17: style (Preferred / Typographic Subfamily)
+    fam_1 = 'Adobe Clean' if style in ('Regular', 'Bold') else f'Adobe Clean {style}'
+    sub_2 = 'Bold' if style == 'Bold' else 'Regular'
+    full_4 = f'Adobe Clean {style}'
+    ps_6 = f'AdobeClean-{style}'
+    uniq_3 = f'5.003;ADBE;AdobeClean-{style};ADOBE;simulated-weight-{weight}'
+    ver_5 = f'Version 5.003;PS 2.000;hotconv 1.0.70;makeotf.lib2.5.5900;simulated-weight-{weight}'
+    
+    names_dict = {
+        1: fam_1,
+        2: sub_2,
+        3: uniq_3,
+        4: full_4,
+        5: ver_5,
+        6: ps_6,
+        7: 'Adobe Clean is a trademark of Adobe Systems Incorporated in the United States and/or other countries.',
+        8: 'Adobe Systems Incorporated',
+        9: 'Robert Slimbach',
+        11: 'http://www.adobe.com/type',
+        16: 'Adobe Clean',
+        17: style
+    }
+    
+    # Clean existing records for these IDs
+    records_to_remove = [rec for rec in font['name'].names if rec.nameID in names_dict]
+    for rec in records_to_remove:
+        font['name'].names.remove(rec)
+        
+    for nid, val in names_dict.items():
+        # Windows platform (3, 1, 0x409)
+        font['name'].setName(val, nid, 3, 1, 0x409)
+        # Mac platform (1, 0, 0)
+        font['name'].setName(val, nid, 1, 0, 0)
+        
+    # OS/2 table
+    if 'OS/2' in font:
+        os2 = font['OS/2']
+        os2.usWeightClass = weight
+        # Clear italic (1), bold (32), regular (64)
+        os2.fsSelection &= ~(1 | 32 | 64)
+        if weight == 700:
+            os2.fsSelection |= 32
+        elif weight == 400:
+            os2.fsSelection |= 64
+        if hasattr(os2, 'panose'):
+            os2.panose.bWeight = panose_weight
+            
+    # head table
+    if 'head' in font:
+        font['head'].macStyle = 1 if weight == 700 else 0
+        
+    # CFF table if present
+    if 'CFF ' in font:
+        cff = font['CFF '].cff
+        cff.fontNames = [ps_6]
+        top = cff.topDictIndex[0]
+        top.FullName = full_4
+        top.FamilyName = 'Adobe Clean'
+        top.Weight = style
+        if hasattr(top, 'rawDict'):
+            top.rawDict['FullName'] = full_4
+            top.rawDict['FamilyName'] = 'Adobe Clean'
+            top.rawDict['Weight'] = style
+
+report = []
+
+for item in weights_info:
+    style = item["style"]
+    weight = item["weight"]
+    panose_w = item["panose_weight"]
+    is_source = item.get("is_source", False)
+    
+    dest_otf = otf_dir / f"AdobeClean-{style}.otf"
+    dest_ttf = ttf_dir / f"AdobeClean-{style}.ttf"
+    dest_woff2 = woff2_dir / f"AdobeClean-{style}.woff2"
+    
+    if is_source:
+        print(f"Preserving source Regular byte-for-byte -> {dest_otf.name}...")
+        shutil.copy2(source_file, dest_otf)
+        assert hashlib.sha256(dest_otf.read_bytes()).hexdigest() == orig_hash
+        
+        # TTF for Regular
+        raw_ttf = raw_dir / "AdobeClean-Regular.ttf"
+        font_ttf = TTFont(raw_ttf)
+        normalize_names_and_tables(font_ttf, style, weight, panose_w, is_ttf=True)
+        font_ttf.save(dest_ttf)
+        
+        # WOFF2
+        font_woff2 = TTFont(dest_otf)
+        font_woff2.flavor = 'woff2'
+        font_woff2.save(dest_woff2)
+    else:
+        print(f"Normalizing {style} ({weight})...")
+        raw_otf = raw_dir / f"AdobeClean-{style}.otf"
+        font_otf = TTFont(raw_otf)
+        normalize_names_and_tables(font_otf, style, weight, panose_w, is_ttf=False)
+        font_otf.save(dest_otf)
+        
+        raw_ttf = raw_dir / f"AdobeClean-{style}.ttf"
+        font_ttf = TTFont(raw_ttf)
+        normalize_names_and_tables(font_ttf, style, weight, panose_w, is_ttf=True)
+        font_ttf.save(dest_ttf)
+        
+        # WOFF2
+        font_woff2 = TTFont(dest_otf)
+        font_woff2.flavor = 'woff2'
+        font_woff2.save(dest_woff2)
+        
+    # Verify coverage
+    v_otf = TTFont(dest_otf)
+    cov = set(v_otf.getBestCmap())
+    assert cov == expected_coverage, f"Coverage mismatch in {dest_otf.name}: {len(cov)} vs {len(expected_coverage)}"
+    
+    report.append({
+        "style": style,
+        "weight": weight,
+        "postScriptName": f"AdobeClean-{style}",
+        "fullName": f"Adobe Clean {style}",
+        "otf": str(dest_otf),
+        "ttf": str(dest_ttf),
+        "woff2": str(dest_woff2),
+        "otfSize": dest_otf.stat().st_size,
+        "ttfSize": dest_ttf.stat().st_size,
+        "woff2Size": dest_woff2.stat().st_size,
+        "codepoints": len(cov)
+    })
+
+# Check original remained untouched
+assert hashlib.sha256(source_file.read_bytes()).hexdigest() == orig_hash
+
+print("Normalization complete! All 9 weights normalized and verified.")

@@ -1,0 +1,29 @@
+{
+    "platform": "switch",
+    "region": "USA",
+    "folder_name": "FINAL_FANTASY_RESONANCE_NSW-VENOM",
+    "title": "Final Fantasy: Resonance",
+    "genre": "Role-playing (RPG)",
+    "score": 8.6,
+    "description": null,
+    "release_date": "2026-10-22",
+    "developer": "Lancarse Co. Ltd.",
+    "publisher": "Square Enix Co., Ltd.",
+    "covers": [
+        {
+            "scan_of": "Front Cover",
+            "image": "imgs/covers/cover1.jpg"
+        }
+    ],
+    "screenshots": [],
+    "size_in_bytes": 9203893631,
+    "files": [
+        "/FINAL_FANTASY_RESONANCE_NSW-VENOM/FINAL_FANTASY_RESONANCE_DLC_Unlocker_NSW-VENOM/v-final_fantasy_resonance_digital_deluxe_upgrade_dlc.nsp",
+        "/FINAL_FANTASY_RESONANCE_NSW-VENOM/FINAL_FANTASY_RESONANCE_DLC_Unlocker_NSW-VENOM/v-final_fantasy_resonance_dlc.nfo",
+        "/FINAL_FANTASY_RESONANCE_NSW-VENOM/FINAL_FANTASY_RESONANCE_DLC_Unlocker_NSW-VENOM/v-final_fantasy_resonance_magitek_airship_and_squire_starter_pack_dlc.nsp",
+        "/FINAL_FANTASY_RESONANCE_NSW-VENOM/FINAL_FANTASY_RESONANCE_DLC_Unlocker_NSW-VENOM/v-final_fantasy_resonance_squire_kickstart_pack_dlc.nsp",
+        "/FINAL_FANTASY_RESONANCE_NSW-VENOM/v-final_fantasy_resonance.nfo",
+        "/FINAL_FANTASY_RESONANCE_NSW-VENOM/v-final_fantasy_resonance.nsp",
+        "/FINAL_FANTASY_RESONANCE_NSW-VENOM/v-final_fantasy_resonance_v65536.nsp"
+    ]
+}

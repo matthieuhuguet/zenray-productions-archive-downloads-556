@@ -1,0 +1,55 @@
+import fontforge
+import json
+import sys
+from pathlib import Path
+
+source_path = '/Users/zenray/Downloads/AdobeClean-Regular.otf'
+out_dir = Path('/Users/zenray/Downloads/AdobeClean/raw')
+out_dir.mkdir(parents=True, exist_ok=True)
+
+weights = [
+    {"style": "Thin", "weight": 100, "stroke": -40},
+    {"style": "ExtraLight", "weight": 200, "stroke": -30},
+    {"style": "Light", "weight": 300, "stroke": -18},
+    {"style": "Medium", "weight": 500, "stroke": 18},
+    {"style": "SemiBold", "weight": 600, "stroke": 36},
+    {"style": "Bold", "weight": 700, "stroke": 56},
+    {"style": "ExtraBold", "weight": 800, "stroke": 78},
+    {"style": "Black", "weight": 900, "stroke": 102}
+]
+
+for item in weights:
+    style = item["style"]
+    weight = item["weight"]
+    stroke = item["stroke"]
+    print(f"Processing {style} ({weight}, stroke {stroke:+d})...")
+    
+    font = fontforge.open(source_path)
+    font.layers[1].is_quadratic = False
+    font.selection.all()
+    font.unlinkReferences()
+    font.changeWeight(stroke, "auto", 0, 0, "retain")
+    font.removeOverlap()
+    font.correctDirection()
+    font.addExtrema()
+    font.round()
+    
+    font.familyname = "Adobe Clean"
+    font.fontname = f"AdobeClean-{style}"
+    font.fullname = f"Adobe Clean {style}"
+    font.weight = style
+    font.os2_weight = weight
+    
+    otf_path = out_dir / f"AdobeClean-{style}.otf"
+    ttf_path = out_dir / f"AdobeClean-{style}.ttf"
+    
+    font.generate(str(otf_path))
+    font.generate(str(ttf_path))
+    font.close()
+    print(f"Generated {otf_path.name} and {ttf_path.name}")
+
+# Also generate TTF for Regular
+font = fontforge.open(source_path)
+font.generate(str(out_dir / "AdobeClean-Regular.ttf"))
+font.close()
+print("Generated AdobeClean-Regular.ttf")

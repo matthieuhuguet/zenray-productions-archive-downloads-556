@@ -1,0 +1,92 @@
+[
+  {
+    "family" : "Adobe Clean",
+    "matched" : true,
+    "registered" : true,
+    "registrationNote" : "OK",
+    "requestedPostScript" : "AdobeClean-Thin",
+    "resolvedPostScript" : "AdobeClean-Thin",
+    "style" : "Thin",
+    "weightTrait" : -0.60000002384185791
+  },
+  {
+    "family" : "Adobe Clean",
+    "matched" : true,
+    "registered" : true,
+    "registrationNote" : "OK",
+    "requestedPostScript" : "AdobeClean-ExtraLight",
+    "resolvedPostScript" : "AdobeClean-ExtraLight",
+    "style" : "ExtraLight",
+    "weightTrait" : -0.40000000596046448
+  },
+  {
+    "family" : "Adobe Clean",
+    "matched" : true,
+    "registered" : true,
+    "registrationNote" : "OK",
+    "requestedPostScript" : "AdobeClean-Light",
+    "resolvedPostScript" : "AdobeClean-Light",
+    "style" : "Light",
+    "weightTrait" : -0.23000000417232513
+  },
+  {
+    "family" : "Adobe Clean",
+    "matched" : true,
+    "registered" : true,
+    "registrationNote" : "OK",
+    "requestedPostScript" : "AdobeClean-Regular",
+    "resolvedPostScript" : "AdobeClean-Regular",
+    "style" : "Regular",
+    "weightTrait" : 0
+  },
+  {
+    "family" : "Adobe Clean",
+    "matched" : true,
+    "registered" : false,
+    "registrationNote" : "Error Domain=com.apple.CoreText.CTFontManagerErrorDomain Code=105 \"The file has already been registered in the specified scope.\" UserInfo={NSLocalizedDescription=The file has already been registered in the specified scope., CTFontManagerErrorFontURLs=(\n    \"file:\/\/\/Users\/zenray\/Library\/Fonts\/AdobeClean-Medium.otf\"\n), NSLocalizedFailureReason=Font registration was unsuccessful.}",
+    "requestedPostScript" : "AdobeClean-Medium",
+    "resolvedPostScript" : "AdobeClean-Medium",
+    "style" : "Medium",
+    "weightTrait" : 0.20000000298023224
+  },
+  {
+    "family" : "Adobe Clean",
+    "matched" : true,
+    "registered" : false,
+    "registrationNote" : "Error Domain=com.apple.CoreText.CTFontManagerErrorDomain Code=105 \"The file has already been registered in the specified scope.\" UserInfo={NSLocalizedDescription=The file has already been registered in the specified scope., CTFontManagerErrorFontURLs=(\n    \"file:\/\/\/Users\/zenray\/Library\/Fonts\/AdobeClean-SemiBold.otf\"\n), NSLocalizedFailureReason=Font registration was unsuccessful.}",
+    "requestedPostScript" : "AdobeClean-SemiBold",
+    "resolvedPostScript" : "AdobeClean-SemiBold",
+    "style" : "SemiBold",
+    "weightTrait" : 0.30000001192092896
+  },
+  {
+    "family" : "Adobe Clean",
+    "matched" : true,
+    "registered" : false,
+    "registrationNote" : "Error Domain=com.apple.CoreText.CTFontManagerErrorDomain Code=105 \"The file has already been registered in the specified scope.\" UserInfo={NSLocalizedDescription=The file has already been registered in the specified scope., CTFontManagerErrorFontURLs=(\n    \"file:\/\/\/Users\/zenray\/Library\/Fonts\/AdobeClean-Bold.otf\"\n), NSLocalizedFailureReason=Font registration was unsuccessful.}",
+    "requestedPostScript" : "AdobeClean-Bold",
+    "resolvedPostScript" : "AdobeClean-Bold",
+    "style" : "Bold",
+    "weightTrait" : 0.40000000596046448
+  },
+  {
+    "family" : "Adobe Clean",
+    "matched" : true,
+    "registered" : false,
+    "registrationNote" : "Error Domain=com.apple.CoreText.CTFontManagerErrorDomain Code=105 \"The file has already been registered in the specified scope.\" UserInfo={NSLocalizedDescription=The file has already been registered in the specified scope., CTFontManagerErrorFontURLs=(\n    \"file:\/\/\/Users\/zenray\/Library\/Fonts\/AdobeClean-ExtraBold.otf\"\n), NSLocalizedFailureReason=Font registration was unsuccessful.}",
+    "requestedPostScript" : "AdobeClean-ExtraBold",
+    "resolvedPostScript" : "AdobeClean-ExtraBold",
+    "style" : "ExtraBold",
+    "weightTrait" : 0.60000002384185791
+  },
+  {
+    "family" : "Adobe Clean",
+    "matched" : true,
+    "registered" : false,
+    "registrationNote" : "Error Domain=com.apple.CoreText.CTFontManagerErrorDomain Code=105 \"The file has already been registered in the specified scope.\" UserInfo={NSLocalizedDescription=The file has already been registered in the specified scope., CTFontManagerErrorFontURLs=(\n    \"file:\/\/\/Users\/zenray\/Library\/Fonts\/AdobeClean-Black.otf\"\n), NSLocalizedFailureReason=Font registration was unsuccessful.}",
+    "requestedPostScript" : "AdobeClean-Black",
+    "resolvedPostScript" : "AdobeClean-Black",
+    "style" : "Black",
+    "weightTrait" : 0.80000001192092896
+  }
+]

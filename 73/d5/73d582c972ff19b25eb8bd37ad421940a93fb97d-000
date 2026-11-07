@@ -1,0 +1,46 @@
+import Foundation
+import CoreText
+
+let styles = [
+    "Thin",
+    "ExtraLight",
+    "Light",
+    "Regular",
+    "Medium",
+    "SemiBold",
+    "Bold",
+    "ExtraBold",
+    "Black"
+]
+
+var results: [[String: Any]] = []
+
+for style in styles {
+    let psName = "AdobeClean-" + style
+    let url = URL(fileURLWithPath: "/Users/zenray/Library/Fonts/" + psName + ".otf")
+    var error: Unmanaged<CFError>?
+    let registered = CTFontManagerRegisterFontsForURL(url as CFURL, .user, &error)
+    
+    let font = CTFontCreateWithName(psName as CFString, 48, nil)
+    let actualPS = CTFontCopyPostScriptName(font) as String
+    let family = CTFontCopyFamilyName(font) as String
+    let traits = CTFontCopyTraits(font) as NSDictionary
+    let weight = traits[kCTFontWeightTrait] as? NSNumber ?? 0
+    
+    let matched = (actualPS == psName)
+    results.append([
+        "style": style,
+        "requestedPostScript": psName,
+        "resolvedPostScript": actualPS,
+        "family": family,
+        "matched": matched,
+        "weightTrait": weight,
+        "registered": registered,
+        "registrationNote": error.map { String(describing: $0.takeRetainedValue()) } ?? "OK"
+    ])
+}
+
+let data = try JSONSerialization.data(withJSONObject: results, options: [.prettyPrinted, .sortedKeys])
+let outURL = URL(fileURLWithPath: "/Users/zenray/Downloads/AdobeClean/CoreTextVerification.json")
+try data.write(to: outURL)
+print(String(data: data, encoding: .utf8)!)

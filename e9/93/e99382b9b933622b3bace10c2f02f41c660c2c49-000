@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adobe Clean — Famille Officielle (Robert Slimbach)</title>
+<style>
+  @font-face {
+    font-family: 'Adobe Clean';
+    src: url('./WOFF2/AdobeClean-Light.woff2') format('woff2');
+    font-weight: 300;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Adobe Clean';
+    src: url('./WOFF2/AdobeClean-SemiLight.woff2') format('woff2');
+    font-weight: 350;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Adobe Clean';
+    src: url('./WOFF2/AdobeClean-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Adobe Clean';
+    src: url('./WOFF2/AdobeClean-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Adobe Clean';
+    src: url('./WOFF2/AdobeClean-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Adobe Clean';
+    src: url('./WOFF2/AdobeClean-ExtraBold.woff2') format('woff2');
+    font-weight: 800;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Adobe Clean';
+    src: url('./WOFF2/AdobeClean-Black.woff2') format('woff2');
+    font-weight: 900;
+    font-style: normal;
+  }
+
+  :root {
+    --bg: #1A2332;
+    --surface: #222E42;
+    --border: #2C3C56;
+    --text-primary: #F1F5F9;
+    --text-muted: #8292AD;
+    --accent: #38BDF8;
+    --accent-glow: rgba(56, 189, 248, 0.12);
+    --card-bg: rgba(255, 255, 255, 0.03);
+    --card-border: rgba(255, 255, 255, 0.08);
+    --font-size: 38px;
+    --line-height: 1.35;
+    --letter-spacing: 0px;
+  }
+
+  body.light-theme {
+    --bg: #F8FAFC;
+    --surface: #FFFFFF;
+    --border: #E2E8F0;
+    --text-primary: #0F172A;
+    --text-muted: #64748B;
+    --accent: #0284C7;
+    --accent-glow: rgba(2, 132, 199, 0.1);
+    --card-bg: #FFFFFF;
+    --card-border: #E2E8F0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text-primary);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    padding: 40px 24px;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  h1 {
+    font-family: 'Adobe Clean', sans-serif;
+    font-weight: 700;
+    font-size: 34px;
+    letter-spacing: -0.5px;
+    margin-bottom: 6px;
+  }
+
+  .subtitle {
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+
+  .theme-toggle {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .controls {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 22px;
+    margin-bottom: 28px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 18px;
+  }
+
+  .control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .control-group label {
+    font-size: 11px;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+  }
+
+  .control-group input[type="range"] {
+    width: 100%;
+    accent-color: var(--accent);
+  }
+
+  .control-group input[type="text"] {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+  }
+
+  .specimen-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .weight-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 10px;
+    padding: 20px 24px;
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 20px;
+    align-items: baseline;
+  }
+
+  .meta {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .weight-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .badge-val {
+    background: var(--accent-glow);
+    color: var(--accent);
+    padding: 2px 7px;
+    border-radius: 5px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  .ps-name {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-family: monospace;
+  }
+
+  .sample-text {
+    font-family: 'Adobe Clean', sans-serif;
+    font-size: var(--font-size);
+    line-height: var(--line-height);
+    letter-spacing: var(--letter-spacing);
+  }
+
+  .w300 { font-weight: 300; }
+  .w350 { font-weight: 350; }
+  .w400 { font-weight: 400; }
+  .w500 { font-weight: 500; }
+  .w700 { font-weight: 700; }
+  .w800 { font-weight: 800; }
+  .w900 { font-weight: 900; }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div>
+      <h1>Adobe Clean</h1>
+      <p class="subtitle">Famille officielle authentique (Robert Slimbach, Version 5.210 GM) · 7 graisses dessinées à la main, italiques et condensés</p>
+    </div>
+    <button class="theme-toggle" onclick="document.body.classList.toggle('light-theme')">Basculer Thème</button>
+  </header>
+
+  <div class="controls">
+    <div class="control-group" style="grid-column: span 2;">
+      <label>Texte personnalisé</label>
+      <input type="text" id="textInput" value="Matthieu Huguet">
+    </div>
+    <div class="control-group">
+      <label>Taille : <span id="sizeVal">38px</span></label>
+      <input type="range" id="sizeRange" min="16" max="72" value="38">
+    </div>
+    <div class="control-group">
+      <label>Interlignage : <span id="lhVal">1.35</span></label>
+      <input type="range" id="lhRange" min="1.0" max="2.0" step="0.05" value="1.35">
+    </div>
+    <div class="control-group">
+      <label>Approche : <span id="lsVal">0px</span></label>
+      <input type="range" id="lsRange" min="-2" max="6" step="0.5" value="0">
+    </div>
+  </div>
+
+  <div class="specimen-list">
+    <div class="weight-card">
+      <div class="meta">
+        <div class="weight-badge">Light <span class="badge-val">300</span></div>
+        <div class="ps-name">AdobeClean-Light</div>
+      </div>
+      <div class="sample-text w300">Matthieu Huguet</div>
+    </div>
+
+    <div class="weight-card">
+      <div class="meta">
+        <div class="weight-badge">SemiLight <span class="badge-val">350</span></div>
+        <div class="ps-name">AdobeClean-SemiLight</div>
+      </div>
+      <div class="sample-text w350">Matthieu Huguet</div>
+    </div>
+
+    <div class="weight-card">
+      <div class="meta">
+        <div class="weight-badge">Regular <span class="badge-val">400</span></div>
+        <div class="ps-name">AdobeClean-Regular</div>
+      </div>
+      <div class="sample-text w400">Matthieu Huguet</div>
+    </div>
+
+    <div class="weight-card">
+      <div class="meta">
+        <div class="weight-badge">Medium <span class="badge-val">500</span></div>
+        <div class="ps-name">AdobeClean-Medium</div>
+      </div>
+      <div class="sample-text w500">Matthieu Huguet</div>
+    </div>
+
+    <div class="weight-card">
+      <div class="meta">
+        <div class="weight-badge">Bold <span class="badge-val">700</span></div>
+        <div class="ps-name">AdobeClean-Bold</div>
+      </div>
+      <div class="sample-text w700">Matthieu Huguet</div>
+    </div>
+
+    <div class="weight-card">
+      <div class="meta">
+        <div class="weight-badge">ExtraBold <span class="badge-val">800</span></div>
+        <div class="ps-name">AdobeClean-ExtraBold</div>
+      </div>
+      <div class="sample-text w800">Matthieu Huguet</div>
+    </div>
+
+    <div class="weight-card">
+      <div class="meta">
+        <div class="weight-badge">Black <span class="badge-val">900</span></div>
+        <div class="ps-name">AdobeClean-Black</div>
+      </div>
+      <div class="sample-text w900">Matthieu Huguet</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const textInput = document.getElementById('textInput');
+  const sizeRange = document.getElementById('sizeRange');
+  const lhRange = document.getElementById('lhRange');
+  const lsRange = document.getElementById('lsRange');
+  const sizeVal = document.getElementById('sizeVal');
+  const lhVal = document.getElementById('lhVal');
+  const lsVal = document.getElementById('lsVal');
+  const samples = document.querySelectorAll('.sample-text');
+
+  textInput.addEventListener('input', (e) => {
+    const val = e.target.value || ' ';
+    samples.forEach(s => s.textContent = val);
+  });
+
+  sizeRange.addEventListener('input', (e) => {
+    document.documentElement.style.setProperty('--font-size', e.target.value + 'px');
+    sizeVal.textContent = e.target.value + 'px';
+  });
+
+  lhRange.addEventListener('input', (e) => {
+    document.documentElement.style.setProperty('--line-height', e.target.value);
+    lhVal.textContent = e.target.value;
+  });
+
+  lsRange.addEventListener('input', (e) => {
+    document.documentElement.style.setProperty('--letter-spacing', e.target.value + 'px');
+    lsVal.textContent = e.target.value + 'px';
+  });
+</script>
+</body>
+</html>
